@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>And there he is: Andrew</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #001f3f, #000);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.logo { width: 90px; margin-bottom: 10px; }
+.scoreboard { background: black; border: 3px solid #6CABDD; padding: 10px 20px; font-size: 1.2rem; margin: 15px 0; border-radius: 8px; }
+.name { font-size: 2.8rem; color: #6CABDD; font-weight: bold; text-shadow: 0 0 15px #6CABDD; margin: 10px 0; }
+.intro { font-size: 1.1rem; min-height: 40px; margin-bottom: 20px; }
+button { width: 80%; max-width: 300px; padding: 15px; font-size: 1.2rem; border: none; border-radius: 30px; background: #6CABDD; color: black; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+#slide { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 0 0 20px #6CABDD; margin-bottom: 15px; }
+.message { font-size: 1rem; padding: 0 10px; }
+@keyframes fall{ to{transform: translateY(100vh);} }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg" alt="Man City Logo">
+
+    <div class="scoreboard">MAN CITY 1 – AGE 0</div>
+
+    <div class="name">ANDREW</div>
+
+    <div class="intro" id="introText"></div>
+
+    <button id="kickBtn">⚽ Kick Off</button>
+
+    <img id="slide" src="https://via.placeholder.com/400x250.png?text=Man+City+Slide+1" alt="Slide">
+
+    <div id="surprise" class="hidden">
+        <div class="message">
+            <h2>🎉 HAPPY BIRTHDAY CHAMPION 🎉</h2>
+            <p>The crowd goes wild for YOU today!</p>
+            <p>Another year stronger. Another year unstoppable.</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Your Happy Birthday soundtrack -->
+<audio id="birthdaySound" preload="auto">
+    <source src="happy_birthday_song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Typing intro
+const introText = "🎙 Now entering the pitch... THE BIRTHDAY STAR... ANDREW! 💙⚽";
+let index = 0;
+function typeIntro() {
+    if(index < introText.length){
+        document.getElementById("introText").innerHTML += introText.charAt(index);
+        index++;
+        setTimeout(typeIntro, 40);
+    }
+}
+typeIntro();
+
+// Slides
+const slides = [
+    "andy1.jpeg",
+    "andy2.jpeg",
+    "andy3.jpeg",
+    "andy4.jpeg",
+    "final_slide.png"// final epic slide
+];
+let slideIndex = 0;
+let slideInterval;
+
+// Kick Off button
+document.getElementById("kickBtn").addEventListener("click", function() {
+    document.getElementById("surprise").classList.remove("hidden");
+
+    // Play birthday soundtrack
+    const birthday = document.getElementById("birthdaySound");
+    birthday.currentTime = 0;
+    birthday.play().catch(()=>console.log("Audio blocked"));
+
+    // Launch confetti
+    launchConfetti();
+
+    // Start slideshow auto-cycle
+    slideInterval = setInterval(nextSlide, 2000);
+});
+
+function nextSlide() {
+    slideIndex++;
+    if(slideIndex >= slides.length){
+        clearInterval(slideInterval); // stop at final epic slide
+        slideIndex = slides.length - 1;
+    }
+    document.getElementById("slide").src = slides[slideIndex];
+}
+
+// Confetti
+function launchConfetti(){
+    for(let i=0;i<120;i++){
+        let confetti = document.createElement("div");
+        confetti.style.position = "fixed";
+        confetti.style.width = "8px";
+        confetti.style.height = "8px";
+        confetti.style.backgroundColor = ["#6CABDD","#FFFFFF"][Math.floor(Math.random()*2)];
+        confetti.style.left = Math.random()*window.innerWidth+"px";
+        confetti.style.top = "-10px";
+        confetti.style.opacity = 0.9;
+        confetti.style.animation = "fall 3s linear forwards";
+        document.body.appendChild(confetti);
+        setTimeout(()=>confetti.remove(),3000);
+    }
+}
+</script>
+
+</body>
+</html>
