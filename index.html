@@ -78,11 +78,12 @@ typeIntro();
 
 // Slides
 const slides = [
-   "andy1.jpeg",
-    "andy2.jpeg",
-    "andy3.jpeg",
-    "andy4.jpeg",
-    "final_slide.png"// final epic slide
+   const slides = [
+   "https://raw.githubusercontent.com/Kerubo-systems/andrew_birthday/main/andy1.jpeg",
+   "https://raw.githubusercontent.com/Kerubo-systems/andrew_birthday/main/andy2.jpeg",
+   "https://raw.githubusercontent.com/Kerubo-systems/andrew_birthday/main/andy3.jpeg",
+   "https://raw.githubusercontent.com/Kerubo-systems/andrew_birthday/main/andy4.jpeg",
+   "https://raw.githubusercontent.com/Kerubo-systems/andrew_birthday/main/final_slide.png" // final epic slide
 ];
 let slideIndex = 0;
 let slideInterval;
@@ -119,7 +120,7 @@ function launchConfetti(){
         confetti.style.position = "fixed";
         confetti.style.width = "8px";
         confetti.style.height = "8px";
-        confetti.style.backgroundColor = ["#6CABDD","#FFFFFF"][Math.floor(Math.random()*2)];
+        confetti.style.backgroundColor = ["#6CABDD", "#FFFFFF"][Math.floor(Math.random()*2)];
         confetti.style.left = Math.random()*window.innerWidth+"px";
         confetti.style.top = "-10px";
         confetti.style.opacity = 0.9;
